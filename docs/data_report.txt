@@ -1,0 +1,19 @@
+ Data is ready ✅
+
+Source: NASA POWER API (monthly data)
+Variables: Temperature (T2M) and Rainfall (PRECTOTCORR)
+Years: 1990 to 2024
+Places: 30 global grid points
+Cleaning: missing values fixed, seasonal baseline removed (values are anomalies)
+
+Columns: variable, lat, lon, year, value
+
+Files:
+- clean_yearly.csv (for statistics and map)
+- clean_monthly.csv (for time-series charts)
+- temperature_yearly.csv, temperature_monthly.csv
+- rainfall_yearly.csv, rainfall_monthly.csv
+- fetch_data.py (code, for GitHub)
+
+Person 2: please add trend_slope, p_value, is_significant.
+Person 3: you can start the map with clean_yearly.csv.

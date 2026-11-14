@@ -1,0 +1,5 @@
+variable,lat,lon,r_raw,p_raw,r_detrended,p_detrended
+Temperature,-60,30,-0.06,0.7199,0.4,0.0182
+Temperature,0,90,0.77,0.0,0.45,0.0065
+Rainfall,0,30,0.25,0.1508,-0.19,0.282
+Rainfall,-30,-90,-0.09,0.6025,0.37,0.0285
