@@ -8,40 +8,65 @@ import { getCoordinateKey } from './geoGrid';
  * Fallback: Parses local static CSVs via PapaParse if backend is unavailable.
  */
 
-const API_BASE_URL = (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || 'http://localhost:8000';
+const RAW_API_BASE =
+  typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL
+    ? import.meta.env.VITE_API_URL.replace(/\/$/, '')
+    : '';
+
+const API_BASE_URL = RAW_API_BASE || 'http://localhost:8000';
 
 /**
  * Checks if the FastAPI backend is running and healthy.
  */
 async function checkBackendHealth() {
-  try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2000);
+  const controller = new AbortController();
+  // 3.5-second probe timeout
+  const timeoutId = setTimeout(() => controller.abort(), 3500);
 
-    // Try relative /api/health first (works with Vite proxy), fallback to absolute URL
-    let res = await fetch('/api/health', { signal: controller.signal }).catch(() => null);
-    if (!res || !res.ok) {
-      res = await fetch(`${API_BASE_URL}/api/health`, { signal: controller.signal }).catch(() => null);
-    }
-
-    clearTimeout(timeoutId);
-    if (res && res.ok) {
-      const data = await res.json();
-      return { isHealthy: true, data };
-    }
-  } catch (err) {
-    // Backend probe failed
+  // If RAW_API_BASE is provided (e.g. Render hosted backend), probe it first
+  const candidates = [];
+  if (RAW_API_BASE) {
+    candidates.push(`${RAW_API_BASE}/api/health`);
   }
-  return { isHealthy: false, data: null };
+  candidates.push('/api/health');
+  if (!RAW_API_BASE && API_BASE_URL) {
+    candidates.push(`${API_BASE_URL}/api/health`);
+  }
+
+  for (const url of candidates) {
+    try {
+      const res = await fetch(url, { signal: controller.signal });
+      const cType = res.headers.get('content-type') || '';
+      if (res.ok && cType.includes('application/json')) {
+        const data = await res.json();
+        clearTimeout(timeoutId);
+        const resolvedBase = url.endsWith('/api/health')
+          ? url.slice(0, -'/api/health'.length)
+          : '';
+        return { isHealthy: true, data, activeBase: resolvedBase };
+      }
+    } catch (e) {
+      // Continue to next probe candidate
+    }
+  }
+
+  clearTimeout(timeoutId);
+  return { isHealthy: false, data: null, activeBase: '' };
 }
 
 /**
- * Parse a CSV file using PapaParse.
+ * Parse a CSV file using PapaParse with automatic path normalization.
  */
 async function parseCsvUrl(url) {
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Failed to fetch CSV from ${url}: HTTP ${res.status}`);
+  let res = await fetch(url).catch(() => null);
+  if (!res || !res.ok) {
+    const altUrl = url.startsWith('/data/')
+      ? url.replace('/data/', '/Data/')
+      : url.replace('/Data/', '/data/');
+    res = await fetch(altUrl).catch(() => null);
+  }
+  if (!res || !res.ok) {
+    throw new Error(`Failed to fetch CSV from ${url}: HTTP ${res?.status}`);
   }
   const text = await res.text();
   const parsed = Papa.parse(text, {
@@ -120,6 +145,7 @@ function buildValidationReport(trendsRows) {
  */
 export async function loadDatasets() {
   const health = await checkBackendHealth();
+  const activeBase = health.isHealthy ? health.activeBase : '';
 
   let rawTrends = [];
   let rawYearly = [];
@@ -129,13 +155,22 @@ export async function loadDatasets() {
 
   if (health.isHealthy) {
     try {
-      console.log('⚡ [DataLayer] FastAPI backend connected successfully at:', API_BASE_URL);
+      console.log('⚡ [DataLayer] FastAPI backend connected successfully at:', activeBase || 'local proxy');
+
+      const fetchApi = async (endpoint) => {
+        const primary = activeBase ? `${activeBase}${endpoint}` : endpoint;
+        let r = await fetch(primary).catch(() => null);
+        if (!r || !r.ok) {
+          r = await fetch(endpoint).catch(() => null);
+        }
+        return r;
+      };
 
       // Fetch trends, drivers, and comparisons in parallel from FastAPI
       const [trendsRes, driversRes, comparisonsRes] = await Promise.all([
-        fetch('/api/trends').catch(() => fetch(`${API_BASE_URL}/api/trends`)),
-        fetch('/api/drivers').catch(() => fetch(`${API_BASE_URL}/api/drivers`)),
-        fetch('/api/comparisons').catch(() => fetch(`${API_BASE_URL}/api/comparisons`)),
+        fetchApi('/api/trends'),
+        fetchApi('/api/drivers'),
+        fetchApi('/api/comparisons'),
       ]);
 
       if (trendsRes && trendsRes.ok) {
@@ -199,7 +234,7 @@ export async function loadDatasets() {
   return {
     source: dataSource,
     backendStatus: health.data,
-    backendUrl: API_BASE_URL,
+    backendUrl: activeBase || API_BASE_URL,
     trends: rawTrends,
     variables: Array.from(variableMap.keys()),
     validationReport,
@@ -216,8 +251,12 @@ export async function loadDatasets() {
     // Async getter directly from FastAPI /api/series endpoint with local fallback
     fetchSeriesFromApi: async (variable, lat, lon) => {
       try {
-        const url = `/api/series?variable=${encodeURIComponent(variable)}&lat=${lat}&lon=${lon}`;
-        const res = await fetch(url).catch(() => fetch(`${API_BASE_URL}${url}`));
+        const query = `/api/series?variable=${encodeURIComponent(variable)}&lat=${lat}&lon=${lon}`;
+        const primary = activeBase ? `${activeBase}${query}` : query;
+        let res = await fetch(primary).catch(() => null);
+        if (!res || !res.ok) {
+          res = await fetch(query).catch(() => null);
+        }
         if (res && res.ok) {
           const json = await res.json();
           return json.series || [];
@@ -232,8 +271,12 @@ export async function loadDatasets() {
     // Async getter directly from FastAPI /api/stats endpoint
     fetchStatsFromApi: async (variable, lat, lon) => {
       try {
-        const url = `/api/stats?variable=${encodeURIComponent(variable)}&lat=${lat}&lon=${lon}`;
-        const res = await fetch(url).catch(() => fetch(`${API_BASE_URL}${url}`));
+        const query = `/api/stats?variable=${encodeURIComponent(variable)}&lat=${lat}&lon=${lon}`;
+        const primary = activeBase ? `${activeBase}${query}` : query;
+        let res = await fetch(primary).catch(() => null);
+        if (!res || !res.ok) {
+          res = await fetch(query).catch(() => null);
+        }
         if (res && res.ok) {
           return await res.json();
         }

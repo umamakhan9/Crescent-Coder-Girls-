@@ -221,6 +221,15 @@ cd Crescent-Coder-Girls-
 
 ---
 
+### Production Cloud Deployment (Render + Vercel)
+
+TerraPulse is production-ready for automated cloud hosting:
+- **FastAPI Backend on Render:** Ready for 1-click deploy via [`render.yaml`](render.yaml) (`uvicorn main:app --host 0.0.0.0 --port $PORT`, root dir `backend`).
+- **React/Vite Frontend on Vercel:** Ready for Vite preset deploy with `frontend/vercel.json` SPA rewrites and bundled static CSV fallback.
+- **Detailed Step-by-Step Guide:** See [`docs/deployment.md`](docs/deployment.md) for full instructions, environment variable setup (`VITE_API_URL`), and post-launch verification.
+
+---
+
 ## 11. Team Contributions
 
 | Team Member | Role | Key Contributions |

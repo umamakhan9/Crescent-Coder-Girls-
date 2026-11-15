@@ -16,16 +16,23 @@ _REPO_ROOT = os.path.abspath(os.path.join(_BASE_DIR, ".."))
 
 
 def _resolve_path(rel_path: str, fallback_path: str) -> str:
-    candidate_1 = os.path.join(_REPO_ROOT, rel_path)
-    if os.path.exists(candidate_1):
-        return candidate_1
-    candidate_2 = os.path.join(_BASE_DIR, rel_path)
-    if os.path.exists(candidate_2):
-        return candidate_2
-    candidate_3 = os.path.join(_REPO_ROOT, fallback_path)
-    if os.path.exists(candidate_3):
-        return candidate_3
-    return candidate_1
+    # 1. Inside backend directory (e.g. backend/data/... or backend/results/...)
+    candidate_base = os.path.join(_BASE_DIR, rel_path)
+    if os.path.exists(candidate_base):
+        return candidate_base
+    # 2. In repository root (e.g. data/... or results/...)
+    candidate_repo = os.path.join(_REPO_ROOT, rel_path)
+    if os.path.exists(candidate_repo):
+        return candidate_repo
+    # 3. Fallback path in repository root
+    candidate_fallback_repo = os.path.join(_REPO_ROOT, fallback_path)
+    if os.path.exists(candidate_fallback_repo):
+        return candidate_fallback_repo
+    # 4. Fallback path in backend directory
+    candidate_fallback_base = os.path.join(_BASE_DIR, fallback_path)
+    if os.path.exists(candidate_fallback_base):
+        return candidate_fallback_base
+    return candidate_base
 
 
 CLEAN_YEARLY_PATH = _resolve_path("data/clean_yearly.csv", "Team_Data_Analysis/clean_yearly.csv")
@@ -65,11 +72,11 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# Enable CORS for frontend integration
+# Enable CORS for frontend integration (Vercel, Render, local development)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

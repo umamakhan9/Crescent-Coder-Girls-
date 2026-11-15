@@ -4,6 +4,7 @@ import pandas as pd
 # Determine the path to trend_results.csv relative to this file
 _CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 _CANDIDATE_PATHS = [
+    os.path.join(_CURRENT_DIR, "results", "trend_results.csv"),
     os.path.join(_CURRENT_DIR, "trend_results.csv"),
     os.path.join(_CURRENT_DIR, "..", "results", "trend_results.csv"),
     os.path.join(_CURRENT_DIR, "..", "Team_Data_Analysis", "trend_results.csv"),
