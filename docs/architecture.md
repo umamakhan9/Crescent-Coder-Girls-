@@ -1,8 +1,9 @@
-# Earth Trend Detective — System Architecture
+# TerraPulse — System Architecture
 
 ## NASA Space Apps Challenge 2026
 
-**Project Title:** Earth Trend Detective
+**Project Title:** TerraPulse
+**Tagline:** Discovering the Pulse of a Changing Planet.
 **Team:** Crescent Coder Girls
 
 ---

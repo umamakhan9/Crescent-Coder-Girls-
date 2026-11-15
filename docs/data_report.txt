@@ -1,4 +1,5 @@
- Data is ready ✅
+# TerraPulse — Data Engineering Handoff Report
+Data is ready ✅
 
 Source: NASA POWER API (monthly data)
 Variables: Temperature (T2M) and Rainfall (PRECTOTCORR)

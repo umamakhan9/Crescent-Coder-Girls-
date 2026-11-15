@@ -12,12 +12,15 @@ print("--- Testing root() ---")
 r_root = main.root()
 print("Root:", r_root)
 assert "message" in r_root
+assert "TerraPulse" in r_root["message"]
 
 print("\n--- Testing get_health() ---")
 r_health = main.get_health()
 print("Status:", r_health["status"])
+print("Service:", r_health["service"])
 print("Datasets loaded:", r_health["datasets"])
 assert r_health["status"] == "healthy"
+assert r_health["service"] == "TerraPulse API"
 assert r_health["datasets"]["clean_yearly"]["loaded"] is True
 assert r_health["datasets"]["trend_results"]["loaded"] is True
 

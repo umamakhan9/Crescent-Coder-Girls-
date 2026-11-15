@@ -1,5 +1,5 @@
 import React from 'react';
-import { Globe2, Sparkles, Satellite } from 'lucide-react';
+import { Activity, Sparkles } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -7,20 +7,26 @@ export default function Header() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="p-2.5 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 text-white shadow-lg shadow-blue-500/20">
-            <Globe2 className="w-6 h-6" />
+            <Activity className="w-6 h-6 text-cyan-200" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
                 NASA Space Apps Challenge 2026
               </span>
-              <span className="text-xs font-medium text-slate-400 hidden sm:inline flex items-center gap-1">
-                <Satellite className="w-3.5 h-3.5" /> Person 3: Frontend & Map Developer
+              <span className="text-xs text-slate-400 hidden sm:inline">
+                Crescent Coder Girls
               </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white mt-0.5">
-              Be An Earth System Trend Detective!
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white mt-0.5 flex items-center gap-2">
+              <span>TerraPulse</span>
+              <span className="text-xs font-normal text-slate-400 hidden md:inline">
+                — Discovering the Pulse of a Changing Planet.
+              </span>
             </h1>
+            <p className="text-xs text-slate-400 md:hidden mt-0.5">
+              Discovering the Pulse of a Changing Planet.
+            </p>
           </div>
         </div>
 

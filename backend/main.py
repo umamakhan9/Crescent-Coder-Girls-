@@ -60,8 +60,8 @@ except Exception as e:
 
 # Initialize FastAPI application
 app = FastAPI(
-    title="Earth Trend Detective API",
-    description="NASA Space Apps Challenge 2026 — Environmental & Climate Trend Detective API",
+    title="TerraPulse API",
+    description="NASA Space Apps Challenge 2026 — TerraPulse: Discovering the Pulse of a Changing Planet",
     version="1.0.0",
 )
 
@@ -96,7 +96,8 @@ def _clean_record(d: Dict[str, Any]) -> Dict[str, Any]:
 @app.get("/")
 def root():
     return {
-        "message": "Welcome to the Earth Trend Detective API",
+        "message": "Welcome to the TerraPulse API",
+        "tagline": "Discovering the Pulse of a Changing Planet.",
         "documentation": "/docs",
         "health": "/api/health",
         "variables": "/api/variables",
@@ -108,7 +109,8 @@ def get_health():
     """Return backend status and dataset accessibility."""
     return {
         "status": "healthy",
-        "service": "Earth Trend Detective API",
+        "service": "TerraPulse API",
+        "tagline": "Discovering the Pulse of a Changing Planet.",
         "challenge": "NASA Space Apps Challenge 2026",
         "study_period": "1990-2024 (35 years)",
         "grid_points_count": 30,

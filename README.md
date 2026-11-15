@@ -1,6 +1,7 @@
-# Earth Trend Detective
+# TerraPulse
 
-**NASA Space Apps Challenge 2026** — *Be An Earth System Trend Detective!*
+**NASA Space Apps Challenge 2026** — *Discovering the Pulse of a Changing Planet.*
+*(Challenge Prompt: Be An Earth System Trend Detective!)*
 **Team:** Crescent Coder Girls
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
@@ -14,7 +15,7 @@
 
 ## 1. Project Overview
 
-**Earth Trend Detective** is an interactive, full-stack scientific web platform designed to uncover, validate, and visualize multi-decadal environmental and climate trends from 1990 to 2024.
+**TerraPulse** is an interactive, full-stack scientific web platform designed to uncover, validate, and visualize multi-decadal environmental and climate trends from 1990 to 2024.
 
 By analyzing 35 continuous years of NASA Earth science observations across a standardized 30-cell global grid ($5 \text{ latitudes} \times 6 \text{ longitudes}$), our application separates long-term climate signals from natural seasonal variability. It features non-parametric statistical modeling, False Discovery Rate (FDR) multiple testing correction, a high-performance FastAPI backend, and an interactive React/Leaflet dashboard.
 
@@ -26,7 +27,7 @@ Earth's climate system exhibits pronounced natural variability—such as seasona
 1. **Raw data complexity:** Satellite and reanalysis datasets contain missing values, seasonal biases, and multiple testing anomalies.
 2. **Oversimplified narratives:** Global warming does not occur uniformly; certain areas experience rapid warming or drying while others experience contrasting regional responses.
 
-**Earth Trend Detective** addresses these challenges by applying rigorous, non-parametric statistics to NASA observations and presenting clear, interactive visual evidence.
+**TerraPulse** addresses these challenges by applying rigorous, non-parametric statistics to NASA observations and presenting clear, interactive visual evidence.
 
 ---
 

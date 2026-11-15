@@ -1,6 +1,6 @@
-# 3-Minute Hackathon Pitch Script — Earth Trend Detective
+# 3-Minute Hackathon Pitch Script — TerraPulse
 
-**NASA Space Apps Challenge 2026** — *Be An Earth System Trend Detective!*
+**NASA Space Apps Challenge 2026** — *Discovering the Pulse of a Changing Planet.*
 **Presenter:** Person 4 — Backend & Pitch Lead
 **Team:** Crescent Coder Girls
 **Target Duration:** Exactly 3 Minutes (~420 Spoken Words)
@@ -30,7 +30,7 @@
 ---
 
 ### [0:30 – 1:05] 2. The Solution & NASA Data
-> *"Our answer is **Earth Trend Detective**—an interactive, full-stack scientific platform built for the NASA Space Apps Challenge.*
+> *"Our answer is **TerraPulse**—an interactive, full-stack scientific platform built for the NASA Space Apps Challenge.*
 > *Our Data Engineer, Person 1, acquired 35 continuous years of monthly satellite and assimilation data—from 1990 to 2024—directly from the **NASA Langley POWER API**.*
 > *Covering 30 global grid cells, we tracked two critical variables: Surface Temperature and Corrected Precipitation. We removed seasonal baselines to isolate true monthly anomalies, replaced missing flags with time-interpolated values, and generated clean annual indices without fabricating a single data point."*
 
@@ -56,12 +56,12 @@
 ### [2:20 – 2:45] 5. Scientific Findings: Regional Divergence
 > *"Our detective work revealed compelling scientific insights.*
 > *For example, in Equatorial Asia (Latitude 0°, Longitude 90°), we confirmed strong, statistically significant warming of plus 0.75 degrees ($p < 0.001$). Yet in the Southern Ocean (Latitude -60°, Longitude 30°), we verified a significant cooling anomaly of minus 1.17 degrees.*
-> *Earth Trend Detective proves that climate impacts are intensely regional."*
+> *TerraPulse proves that climate impacts are intensely regional."*
 
 ---
 
 ### [2:45 – 3:00] 6. Conclusion & Call to Action
-> *"Earth Trend Detective bridges the gap between raw NASA satellite data and actionable public understanding.*
+> *"TerraPulse bridges the gap between raw NASA satellite data and actionable public understanding.*
 > *We are Crescent Coder Girls, and we invite you to explore the data for yourself.*
 > *Thank you, and we welcome your questions!"*
 
@@ -69,7 +69,7 @@
 
 ## Speaker Delivery Tips for Person 4
 
-1. **Pacing:** Aim for a steady, conversational pace of about 140 words per minute. Practice pausing for 1 second after saying *"Earth Trend Detective"* and after stating key numbers.
+1. **Pacing:** Aim for a steady, conversational pace of about 140 words per minute. Practice pausing for 1 second after saying *"TerraPulse"* and after stating key numbers.
 2. **Tone:** Confident, enthusiastic, and grounded in technical honesty. Emphasize that the data is *real NASA data* and the statistics are *FDR-corrected*.
 3. **If Demoing Live:**
    - **At 1:45:** Click on Equatorial Asia on the map to show the red cell and rising curve.

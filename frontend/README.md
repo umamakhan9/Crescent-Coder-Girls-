@@ -1,6 +1,6 @@
-# Earth Trend Detective
+# TerraPulse — Frontend Dashboard
 
-**NASA Space Apps Challenge 2026** — *Be An Earth System Trend Detective!*
+**NASA Space Apps Challenge 2026** — *Discovering the Pulse of a Changing Planet.*
 **Role:** Person 3 — Frontend & Map Developer
 
 An interactive web dashboard for exploring global Earth system trends (Temperature and Rainfall) across 30 geographical cells from 1990 to 2024.
@@ -28,7 +28,7 @@ An interactive web dashboard for exploring global Earth system trends (Temperatu
 ## Project Structure
 
 ```text
-Earth_Trend_Detective/
+frontend/
 ├── Data/                          # Original read-only CSV datasets
 │   ├── trend_results.csv          # 60 spatial trend records (30 per variable)
 │   └── clean_yearly.csv           # 2,100 annual anomaly records (1990–2024)
@@ -68,9 +68,9 @@ Earth_Trend_Detective/
 
 ## How to Run Locally
 
-1. **Open a terminal** in the project folder:
+1. **Open a terminal** in the frontend folder:
    ```bash
-   cd Earth_Trend_Detective
+   cd frontend
    ```
 
 2. **Install dependencies** (first time only):

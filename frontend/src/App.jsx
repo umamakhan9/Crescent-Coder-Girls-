@@ -214,9 +214,9 @@ export default function App() {
       </main>
 
       <footer className="mt-auto border-t border-slate-800/80 bg-slate-900/60 py-4 px-6 text-center text-xs text-slate-500">
-        <p>NASA Space Apps Challenge 2026 — Be An Earth System Trend Detective!</p>
+        <p>NASA Space Apps Challenge 2026 — TerraPulse</p>
         <p className="text-[11px] text-slate-600 mt-1">
-          Historical datasets (1990–2024) verified and processed without alteration · Crescent Coder Girls
+          Discovering the Pulse of a Changing Planet. · Historical datasets (1990–2024) verified and processed without alteration · Crescent Coder Girls
         </p>
       </footer>
     </div>
